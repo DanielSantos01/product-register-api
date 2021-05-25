@@ -1,8 +1,11 @@
 {
-  "name": "backend_express",
+  "name": "product-register-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "engines": {
+   "node": "14.17.0"
+   },
+  "description": "A simple api",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
