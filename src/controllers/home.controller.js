@@ -1,5 +1,5 @@
 exports.getController = (req, res) => {
-  res.render('index');
+  res.send("it's working...");
 };
 
 exports.postController = (req, res) => {
