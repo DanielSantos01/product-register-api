@@ -5,6 +5,9 @@ const homeController = require('../src/controllers/home.controller');
 
 router.get('/', homeController.getController);
 router.post('/', homeController.postController);
-router.get('/favicon.ico', () => console.log('uiaaaaaa'))
+router.get('/haha', (req, res) => {
+    console.log('uiaaaaaa');
+    res.send('Hello Heroku');
+});
 
 module.exports = router;
