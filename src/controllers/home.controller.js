@@ -5,6 +5,6 @@ exports.getController = (req, res) => {
 };
 
 exports.postController = (req, res) => {
-  res.send(req.query);
+  res.send(req.body);
   // UsersAdapter.createUser({ ...req.body, resolve });
 };
