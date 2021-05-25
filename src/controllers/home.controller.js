@@ -1,4 +1,5 @@
 exports.getController = (req, res) => {
+  res.send('thanksssssss');
   res.render('index');
 };
 
