@@ -4,11 +4,10 @@ class UsersRepository {
   createUser(creationData) {
     const { name, role, resolve } = creationData;
     resolve({ name, role });
-    /*
     UserModel.create({
       name,
       role
-    }).then(result => resolve(result));*/
+    }).then(result => resolve(result));
   }
 };
 
