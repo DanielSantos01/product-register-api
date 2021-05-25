@@ -5,6 +5,6 @@ exports.getController = (req, res) => {
 };
 
 exports.postController = (req, res) => {
-  const resolve = (users) => res.send(users);
-  UsersAdapter.createUser({ ...req.body, resolve });
+  res.send(req);
+  // UsersAdapter.createUser({ ...req.body, resolve });
 };
