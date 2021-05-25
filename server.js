@@ -17,8 +17,8 @@ mongoose.connect(
 
 app.use(express.urlencoded({ extended: true }));
 
-app.set('views', resolve(__dirname, 'src', 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', resolve(__dirname, 'src', 'views'));
+// app.set('view engine', 'ejs');
 
 app.use(homeRoutes);
 

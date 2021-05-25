@@ -5,10 +5,10 @@
    "node": "14.17.0"
    },
   "description": "A simple api",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
