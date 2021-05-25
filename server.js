@@ -11,18 +11,14 @@ const homeRoutes = require('./routes/home.routes');
 mongoose.connect(
   process.env.CONNECTION_STRING,
   { useNewUrlParser: true, useUnifiedTopology: true },
-);
+).then(() => {
+  app.use(express.urlencoded({ extended: true }));
 
-app.use(express.urlencoded({ extended: true }));
+  app.set('views', resolve(__dirname, 'src', 'views'));
+  app.set('view engine', 'ejs');
 
-app.set('views', resolve(__dirname, 'src', 'views'));
-app.set('view engine', 'ejs');
-
-app.use(homeRoutes);
+  app.use(homeRoutes);
 
 
-app.listen(connectionPort, () => console.log(`successfull listening to port ${connectionPort}`));
-
-app.on('database error', () => {
-  console.log('error while connecting to database');
+  app.listen(connectionPort, () => console.log(`successfull listening to port ${connectionPort}`));
 });
