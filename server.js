@@ -8,12 +8,18 @@ const connectionPort = process.env.PORT || 3000;
 const app = express();
 const homeRoutes = require('./routes/home.routes');
 
+mongoose.connect(
+  process.env.CONNECTION_STRING,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+);
+
 app.use(express.urlencoded({ extended: true }));
 
-// app.set('views', resolve(__dirname, 'src', 'views'));
-// app.set('view engine', 'ejs');
+app.set('views', resolve(__dirname, 'src', 'views'));
+app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => res.send('Hello Heroku'));
+app.use(homeRoutes);
+
 
 app.listen(connectionPort, () => console.log(`successfull listening to port ${connectionPort}`));
 
