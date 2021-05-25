@@ -10,7 +10,7 @@ const homeRoutes = require('./routes/home.routes');
 const userRoutes = require('./routes/user.routes');
 
 mongoose.connect(
-  'mongodb+srv://danielsantos:staging010203@staging1.9jkrt.mongodb.net/staging?retryWrites=true&w=majority',
+  process.env.CONNECTION_STRING,
   { useNewUrlParser: true, useUnifiedTopology: true },
 )
   .then(() => app.emit('database connected'))
