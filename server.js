@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.set('views', resolve(__dirname, 'src', 'views'));
 // app.set('view engine', 'ejs');
 
-app.use(homeRoutes);
+app.get('/', (req, res) => res.send('Hello Heroku'));
 
 app.on('database connected', () => {
   app.listen(connectionPort, () => console.log(`successfull listening to port ${connectionPort}`));
