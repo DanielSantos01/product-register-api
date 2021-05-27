@@ -8,6 +8,7 @@ const connectionPort = process.env.PORT || 3000;
 const app = express();
 const homeRoutes = require('./routes/home.routes');
 const userRoutes = require('./routes/user.routes');
+const itemRoutes = require('./routes/item.routes');
 
 mongoose.connect(
   process.env.CONNECTION_STRING,
@@ -23,6 +24,7 @@ app.set('view engine', 'ejs');
 
 app.use(homeRoutes);
 app.use(userRoutes);
+app.use(itemRoutes);
 
 app.on('database connected', () => {
   app.listen(connectionPort, () => console.log(`successfull listening to port ${connectionPort}`));

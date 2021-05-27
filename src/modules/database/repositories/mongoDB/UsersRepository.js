@@ -1,3 +1,5 @@
+// TODO - Create only if email is not registred yet
+
 const UserModel = require('./models/User');
 
 class UsersRepository {

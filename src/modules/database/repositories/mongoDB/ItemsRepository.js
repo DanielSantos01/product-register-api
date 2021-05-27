@@ -1,8 +1,12 @@
+// TODO - Create only if don't exist the passed name for the ownerId
+
 const ItemModel = require('./models/Item');
 
 class ItemsRepository {
   constructor() {
     this.update = this.update.bind(this);
+    this.create = this.create.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   create(creationData) {
@@ -17,7 +21,16 @@ class ItemsRepository {
       ownerId,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }).then((result) => resolve(result));
+    }).then(() => {
+      this.getAall({ ownerId, resolve });
+    });
+  }
+
+  delete(deleteData) {
+    const { ownerId, id, resolve } = deleteData;
+    ItemModel.findByIdAndDelete(id).exec().then(() => {
+      this.getAall({ ownerId, resolve });
+    });
   }
 
   getAall(findData) {
