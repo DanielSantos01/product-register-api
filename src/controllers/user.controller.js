@@ -1,11 +1,17 @@
 const UserHelper = require('../modules/database/adapters/Users');
 
 exports.create = (req, res) => {
-  const { password, login, role } = req.body;
+  const {
+    password, login, role, name,
+  } = req.body;
 
   const resolve = (result) => res.send(result);
-  UserHelper.createUser({
-    login, password, role, resolve,
+  UserHelper.create({
+    login,
+    password,
+    role,
+    resolve,
+    name,
   });
 };
 
@@ -17,7 +23,7 @@ exports.acess = (req, res) => {
     res.send(hasResult ? result : '');
   };
 
-  UserHelper.findUser({ login, password, resolve });
+  UserHelper.find({ login, password, resolve });
 };
 
 exports.update = (req, res) => {

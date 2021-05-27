@@ -2,22 +2,25 @@ const UserModel = require('./models/User');
 
 class UsersRepository {
   constructor() {
-    this.createUser = this.createUser.bind(this);
+    this.create = this.create.bind(this);
   }
 
-  createUser(creationData) {
+  create(creationData) {
     const {
-      login, password, role, resolve,
+      login, password, role, resolve, name,
     } = creationData;
 
     UserModel.create({
       login,
       password,
       role,
+      name,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }).then((result) => resolve(result));
   }
 
-  findUser(findData) {
+  find(findData) {
     const { login, password, resolve } = findData;
     UserModel.find({ login, password }).exec().then((result) => resolve(result));
   }
@@ -32,7 +35,7 @@ class UsersRepository {
 
     UserModel.findByIdAndUpdate(
       userId,
-      updateParams,
+      { ...updateParams, updatedAt: new Date() },
       { new: true },
     ).exec().then(((result) => resolve(result)));
   }
