@@ -5,6 +5,7 @@ const ItemSchema = new mongoose.Schema({
   price: { type: String, required: true },
   quantity: { type: String, required: true },
   ownerId: { type: String, require: true },
+  description: { type: String, require: false },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: false },
 });
