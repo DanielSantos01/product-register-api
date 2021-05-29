@@ -11,7 +11,7 @@ class ItemsRepository {
 
   create(creationData) {
     const {
-      name, price, quantity, ownerId, description, resolve,
+      name, price, quantity, ownerId, description, resolve, category,
     } = creationData;
 
     ItemModel.create({
@@ -20,6 +20,7 @@ class ItemsRepository {
       quantity,
       ownerId,
       description,
+      category,
       createdAt: new Date(),
       updatedAt: new Date(),
     }).then(() => {

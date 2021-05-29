@@ -2,7 +2,7 @@ const ItemHelper = require('../modules/database/adapters/Items');
 
 exports.create = (req, res) => {
   const {
-    name, price, quantity, ownerId, description,
+    name, price, quantity, ownerId, description, category,
   } = req.body;
 
   const resolve = (result) => res.send(result);
@@ -13,6 +13,7 @@ exports.create = (req, res) => {
     ownerId,
     description,
     resolve,
+    category,
   });
 };
 
