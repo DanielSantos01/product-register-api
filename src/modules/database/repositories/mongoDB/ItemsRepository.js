@@ -1,5 +1,3 @@
-// TODO - Create only if don't exist the passed name for the ownerId
-
 const ItemModel = require('./models/Item');
 
 class ItemsRepository {
@@ -9,53 +7,82 @@ class ItemsRepository {
     this.delete = this.delete.bind(this);
   }
 
-  create(creationData) {
-    const {
-      name, price, quantity, ownerId, description, resolve, category,
-    } = creationData;
+  async create(creationData) {
+    const { ownerId, name } = creationData;
+    try {
+      const item = await this.find({ ownerId, name });
+      if (item?.length) {
+        return 'Item already registred';
+      }
 
-    ItemModel.create({
-      name,
-      price,
-      quantity,
-      ownerId,
-      description,
-      category,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }).then(() => {
-      this.getAall({ ownerId, resolve });
-    });
+      await ItemModel.create({
+        ...creationData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      const response = await this.getAll({ ownerId });
+      return response;
+    } catch (err) {
+      return err;
+    }
   }
 
-  delete(deleteData) {
-    const { ownerId, id, resolve } = deleteData;
-    ItemModel.findByIdAndDelete(id).exec().then(() => {
-      this.getAall({ ownerId, resolve });
-    });
+  async delete(deleteData) {
+    const { ownerId, id } = deleteData;
+    try {
+      await ItemModel.findByIdAndDelete(id).exec();
+      const response = await this.getAll({ ownerId });
+      return response;
+    } catch (err) {
+      return err;
+    }
   }
 
-  getAall(findData) {
-    const { ownerId, resolve } = findData;
-    ItemModel.find({ ownerId }).exec().then((result) => resolve(result));
+  async getAll(findData) {
+    const { ownerId } = findData;
+    try {
+      const response = await ItemModel.find({ ownerId }).exec();
+      return response;
+    } catch (err) {
+      return err;
+    }
   }
 
-  findById(findData) {
-    const { id, resolve } = findData;
-    ItemModel.findById(id).exec().then((result) => resolve(result));
+  async findById(findData) {
+    const { id } = findData;
+    try {
+      const response = await ItemModel.findById(id).exec();
+      return response;
+    } catch (err) {
+      return err;
+    }
   }
 
-  update(updateData) {
-    const { id, updateParams, resolve } = updateData;
+  async update(updateData) {
+    const { id, updateParams } = updateData;
+    try {
+      const { ownerId } = await ItemModel.findByIdAndUpdate(
+        id,
+        { ...updateParams, updatedAt: new Date() },
+        { new: true },
+      ).exec();
 
-    ItemModel.findByIdAndUpdate(
-      id,
-      { ...updateParams, updatedAt: new Date() },
-      { new: true },
-    ).exec().then(((result) => {
-      const { ownerId } = result;
-      this.getAall({ ownerId, resolve });
-    }));
+      const response = await this.getAll({ ownerId });
+      return response;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  // CURRENTELY USED JUST ON THE SERVER TO CHECK ITEM EXISTENCE
+  async find(findData) {
+    try {
+      const response = await ItemModel.find(findData).exec();
+      return response;
+    } catch (err) {
+      return '';
+    }
   }
 }
 
