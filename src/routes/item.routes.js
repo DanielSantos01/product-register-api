@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const itemController = require('../src/controllers/item.controller');
+const itemController = require('../controllers/item.controller');
 
 router.post('/item/create', itemController.create);
 router.patch('/item', itemController.update);

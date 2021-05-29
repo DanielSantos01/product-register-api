@@ -1,49 +1,31 @@
 const ItemHelper = require('../modules/database/adapters/Items');
 
-exports.create = (req, res) => {
-  const {
-    name, price, quantity, ownerId, description,
-  } = req.body;
-
-  const resolve = (result) => res.send(result);
-  ItemHelper.create({
-    name,
-    price,
-    quantity,
-    ownerId,
-    description,
-    resolve,
-  });
+exports.create = async (req, res) => {
+  const createParams = { ...req.body };
+  const createResponse = await ItemHelper.create(createParams);
+  res.send(createResponse);
 };
 
-exports.getAll = (req, res) => {
-  const { ownerId } = req.body;
-
-  const resolve = (result) => {
-    const hasResult = !!result.length;
-    res.send(hasResult ? result : '');
-  };
-
-  ItemHelper.getAall({ ownerId, resolve });
+exports.getAll = async (req, res) => {
+  const { ownerId } = req.query;
+  const queryResponse = await ItemHelper.getAll({ ownerId });
+  res.send(queryResponse);
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const { id, ...rest } = req.body;
-
-  const resolve = (result) => res.send(result);
-  ItemHelper.update({ id, updateParams: rest, resolve });
+  const updateResponse = await ItemHelper.update({ id, updateParams: rest });
+  res.send(updateResponse);
 };
 
-exports.delete = (req, res) => {
-  const { id, ownerId } = req.body;
-
-  const resolve = (result) => res.send(result);
-  ItemHelper.delete({ id, ownerId, resolve });
+exports.delete = async (req, res) => {
+  const { id, ownerId } = req.query;
+  const deleteResponse = await ItemHelper.delete({ id, ownerId });
+  res.send(deleteResponse);
 };
 
-exports.findById = (req, res) => {
-  const { id } = req.body;
-
-  const resolve = (result) => res.send(result);
-  ItemHelper.findById({ id, resolve });
+exports.findById = async (req, res) => {
+  const { id } = req.query;
+  const findResponse = await ItemHelper.findById({ id });
+  res.send(findResponse);
 };

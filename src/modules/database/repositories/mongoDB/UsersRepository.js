@@ -1,5 +1,3 @@
-// TODO - Create only if email is not registred yet
-
 const UserModel = require('./models/User');
 
 class UsersRepository {
@@ -7,39 +5,57 @@ class UsersRepository {
     this.create = this.create.bind(this);
   }
 
-  create(creationData) {
-    const {
-      login, password, role, resolve, name,
-    } = creationData;
+  async create(creationData) {
+    try {
+      const { login, password } = creationData;
+      const someUser = await this.find({ login, password });
 
-    UserModel.create({
-      login,
-      password,
-      role,
-      name,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }).then((result) => resolve(result));
+      if (someUser?.length) {
+        return 'user already registred';
+      }
+      const response = await UserModel.create({
+        ...creationData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      return response;
+    } catch (err) {
+      return err;
+    }
   }
 
-  find(findData) {
-    const { login, password, resolve } = findData;
-    UserModel.find({ login, password }).exec().then((result) => resolve(result));
+  async find(findData) {
+    try {
+      const response = await UserModel.find(findData).exec();
+      return response;
+    } catch (err) {
+      return '';
+    }
   }
 
-  findById(findData) {
-    const { userId, resolve } = findData;
-    UserModel.findById(userId).exec().then((result) => resolve(result));
+  async findById(findData) {
+    const { userId } = findData;
+    try {
+      const response = await UserModel.findById(userId).exec();
+      return response;
+    } catch (err) {
+      return err;
+    }
   }
 
-  update(updateData) {
-    const { userId, updateParams, resolve } = updateData;
+  async update(updateData) {
+    const { userId, updateParams } = updateData;
 
-    UserModel.findByIdAndUpdate(
-      userId,
-      { ...updateParams, updatedAt: new Date() },
-      { new: true },
-    ).exec().then(((result) => resolve(result)));
+    try {
+      const response = await UserModel.findByIdAndUpdate(
+        userId,
+        { ...updateParams, updatedAt: new Date() },
+        { new: true },
+      ).exec();
+      return response;
+    } catch (err) {
+      return err;
+    }
   }
 }
 
