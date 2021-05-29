@@ -12,6 +12,12 @@ exports.acess = async (req, res) => {
   res.send(acessResponse);
 };
 
+exports.exists = async (req, res) => {
+  const dataToCheck = { ...req.body };
+  const existsResponse = await UserHelper.find(dataToCheck);
+  res.send(!!existsResponse?.length);
+};
+
 exports.update = async (req, res) => {
   const { id, ...rest } = req.body;
   const updateResponse = await UserHelper.update({ userId: id, updateParams: rest });

@@ -7,8 +7,8 @@ class UsersRepository {
 
   async create(creationData) {
     try {
-      const { login, password } = creationData;
-      const someUser = await this.find({ login, password });
+      const { login } = creationData;
+      const someUser = await this.find({ login });
 
       if (someUser?.length) {
         return 'user already registred';
