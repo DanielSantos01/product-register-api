@@ -18,7 +18,7 @@ exports.create = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
-  const { ownerId } = req.body;
+  const { ownerId } = req.query;
 
   const resolve = (result) => {
     const hasResult = !!result.length;
@@ -36,14 +36,14 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  const { id, ownerId } = req.body;
+  const { id, ownerId } = req.query;
 
   const resolve = (result) => res.send(result);
   ItemHelper.delete({ id, ownerId, resolve });
 };
 
 exports.findById = (req, res) => {
-  const { id } = req.body;
+  const { id } = req.query;
 
   const resolve = (result) => res.send(result);
   ItemHelper.findById({ id, resolve });

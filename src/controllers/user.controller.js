@@ -16,7 +16,7 @@ exports.create = (req, res) => {
 };
 
 exports.acess = (req, res) => {
-  const { password, login } = req.query;
+  const { password, login } = req.body;
 
   const resolve = (result) => {
     const hasResult = !!result.length;
