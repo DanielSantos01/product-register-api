@@ -8,5 +8,6 @@ router.post('/user/acess', userController.acess);
 router.post('/user/exists', userController.exists);
 router.patch('/user', userController.update);
 router.get('/user', userController.findById);
+router.get('/user/position', userController.getPosition);
 
 module.exports = router;

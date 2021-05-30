@@ -29,3 +29,9 @@ exports.findById = async (req, res) => {
   const findResponse = await UserHelper.findById({ userId: id });
   res.send(findResponse);
 };
+
+exports.getPosition = async (req, res) => {
+  const { id } = req.query;
+  const positionResponse = await UserHelper.findPosition({ _id: id });
+  res.send(positionResponse);
+};
