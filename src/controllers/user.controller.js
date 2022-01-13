@@ -7,6 +7,10 @@ exports.create = async (req, res) => {
 };
 
 exports.acess = async (req, res) => {
+  if (!Object.keys(req.body).length) {
+    res.status(400).send({ message: 'user data is required' });
+    return;
+  }
   const acessData = { ...req.body };
   const acessResponse = await UserHelper.find(acessData);
   res.send(acessResponse);
